@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+<section layout:fragment="conteudo">
+
+
+<table>
+	<thead>
+	<tr>
+		<th>nome</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr th:each="aluno : ${alunos}">
+			<td th:text="${aluno.nome}"></td>
+			
+			<td>
+				<span th:text="${aluno.status.descricao}"
+				th:classappend="${aluno.matriculado ? 'label-danger' : 'label-success'}"></span>
+			</td>
+		</tr>
+		
+		
+		
+		<tr>
+			<td colspan="6" th:if="${#lists.isEmpty(alunos)}">Nenhum aluno cadastrado</td>
+		</tr>
+	</tbody>
+</table>
+
+</section>
+
+	
+
+</body>
+</html>

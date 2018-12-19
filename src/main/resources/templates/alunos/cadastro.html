@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<body>
+
+	<section layout:fragment="conteudo">
+	<div class="card">
+	  <div class="card-body">
+	    <h5 class="card-title">Novo aluno</h5>
+
+		<form method="POST" action="/alunos">
+		  <div class="form-group">
+		    <label for="nome">Nome</label>
+		    <input type="text" class="form-control" id="nome" >
+		  </div>
+		  <div class="form-group">
+		    <label for="curso">Curso</label>
+		    <input type="text" class="form-control" id="curso">
+		  </div>
+		  <div class="form-group">
+		    <label for="matricula">Matricula</label>
+		    <input type="text" class="form-control" id="matricula">
+		  </div>
+		  <div class="form-group">
+		    <label for="semestre">Semestre</label>
+		    <input type="text" class="form-control" id="semestre">
+		  </div>
+		  <div class="form-group">
+		    <label for="status" >Status</label>
+		    <div>
+		    	<select class="form-control" name="status">
+		    		<option th:each="status : ${Status}" th:value="${status}" th:text="${status.descricao}"></option>
+		    	</select>
+		    </div>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+
+	  </div>
+	</div>
+	
+	</section>
+
+</body>
+</html>
