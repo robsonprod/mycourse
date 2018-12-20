@@ -1,45 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt"
-	xmlns="http://www.w3.org/1999/xhtml"
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
 </head>
 <body>
 
-<section layout:fragment="conteudo">
+	<section layout:fragment="conteudo">
 
+		<div th:if="${!#strings.isEmpty(msg)}" class="mt-2">
+			<span th:text="${msg}" class="alert alert-success"></span>
+		</div>
 
-<table>
-	<thead>
-	<tr>
-		<th>nome</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr th:each="aluno : ${alunos}">
-			<td th:text="${aluno.nome}"></td>
-			
-			<td>
-				<span th:text="${aluno.status.descricao}"
-				th:classappend="${aluno.matriculado ? 'label-danger' : 'label-success'}"></span>
-			</td>
-		</tr>
-		
-		
-		
-		<tr>
-			<td colspan="6" th:if="${#lists.isEmpty(alunos)}">Nenhum aluno cadastrado</td>
-		</tr>
-	</tbody>
-</table>
+		<div class="d-flex flex-row-reverse bd-highlight mt-3 mb-3">
+			<div class="card">
+				<div class="card-body">
+					<a href="/alunos/cadastrar" style="float: right;"><span class="oi oi-plus"></span>
+						Adicionar Aluno</a>
 
-</section>
+				</div>
+			</div>
+		</div>
 
-	
+		<div class="col-md-12 mb-2">
+			<table class="table-responsive table table-hover table-striped">
+				<thead class="t-head">
+					<tr>
+						<th class="col-md-3">Nome</th>
+						<th class="col-md-3">Curso</th>
+						<th class="col-md-2">Semestre</th>
+						<th class="col-md-2">Status</th>
+						<th class="col-md-2">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="aluno : ${alunos}">
+						<td><a th:href="@{/alunos/exibir/{id}(id=${aluno.id})}"><span
+								th:text="${aluno.nome}"></span></a></td>
+						<td class="text-capitalize"> <span th:text="${aluno.curso}"></span></td>
+						
+						<td class="text-center"> <span th:text="${aluno.semestre}"></span></td>
+
+						<td><span th:text="${aluno.status.descricao}"
+							th:classappend="${#strings.toString(aluno.status) == 'MATRICULADO' ? 'text-primary' : 'text-danger'}"></span>
+						</td>
+
+						<td>
+							<div class="btn-group">
+								<a class="btn" th:href="@{/alunos/{id} (id=${aluno.id}) }">
+									<span class="oi oi-pencil"></span>
+								</a> <a class="btn" data-toggle="modal"
+									th:attr="data-id=${aluno.id}, data-nome=${aluno.nome}"
+									data-target="#modalConfirmacaoModal"> <span
+									class="text-danger oi oi-trash"></span>
+								</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(alunos)}">Nenhum
+							aluno cadastrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div th:replace="fragments/modalConfirmacao :: modal"></div>
+
+	</section>
+
 
 </body>
 </html>

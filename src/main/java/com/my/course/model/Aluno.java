@@ -6,6 +6,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.my.course.enuns.StatusEnum;
 
@@ -16,6 +18,8 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull(message = "Campo obrigatório.")
+	@NotEmpty(message = "Campo obrigatório.")
 	private String nome;
 	
 	private String curso;
@@ -26,10 +30,6 @@ public class Aluno {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status;
-	
-	public boolean isMatriculado(){
-		return StatusEnum.MATRICULADO.equals(this.status);
-	}
 	
 	public Long getId() {
 		return id;

@@ -5,9 +5,11 @@ html, body {
 body {
 	padding-top: 56px;
 	padding-left: 0;
-} 
+}
 
-
+.t-head{
+	background-color: #e3f2fd;
+}
 
 .layout-footer {
 	position: fixed;
